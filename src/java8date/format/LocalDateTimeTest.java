@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Date;
 
 /**
  * LocalDateTime测试
@@ -129,9 +130,11 @@ public class LocalDateTimeTest {
         String dateFormated = dateTimeFormatter.format(localDateTime1);
         System.out.println(dateFormated);
 
-        // Can't do this
-//        LocalDateTime localDateTime2 = LocalDateTime.parse(dateFormated, dateTimeFormatter);
-//        System.out.println(localDateTime2);
+        /**
+         * Can't do this
+         */
+        LocalDateTime localDateTime2 = LocalDateTime.parse(dateFormated, dateTimeFormatter);
+        System.out.println(localDateTime2);
 
         LocalDate localDate = LocalDate.parse(dateFormated, dateTimeFormatter);
         System.out.println(localDate);
@@ -152,6 +155,22 @@ public class LocalDateTimeTest {
 
     @Test
     public void testTransform(){
+        // 时间戳转LocalDateTime
+        long timestamp = Instant.now().toEpochMilli();
+        LocalDateTime localDateTime = Instant.ofEpochMilli(timestamp).atOffset(ZoneOffset.ofHours(8)).toLocalDateTime();
+        System.out.println(localDateTime);
 
+        // LocalDateTime 转时间戳
+        timestamp = localDateTime.toInstant(ZoneOffset.ofHours(8)).toEpochMilli();
+        System.out.println(timestamp);
+
+        // 兼容旧版本Date
+        LocalDateTime localDateTime2 = LocalDateTime.now();
+        Date date = Date.from(localDateTime.toInstant(ZoneOffset.ofHours(0)));
+        System.out.println(date);
+
+        // Date转 LocalDateTime
+        localDateTime2 = date.toInstant().atOffset(ZoneOffset.ofHours(8)).toLocalDateTime();
+        System.out.println(localDateTime2);
     }
 }
