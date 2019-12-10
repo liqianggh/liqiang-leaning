@@ -8,23 +8,18 @@ import java.util.concurrent.*;
  * @date 2019-06-01 17:33
  **/
 public class CyclicBarrierTest {
-    static CyclicBarrier cyclicBarrier = new CyclicBarrier(2);
+
 
     public static void main(String[] args) throws BrokenBarrierException, InterruptedException {
-
-        int cpus = Runtime.getRuntime().availableProcessors();
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(3, () -> System.out.println("sdfdsfafasd"));
 
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(11, 100, 1, TimeUnit.SECONDS, new LinkedBlockingDeque<>(10));
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 2; i++) {
             threadPool.execute(() -> {
                 System.out.println("hello:" + Thread.currentThread().getName());
                 try {
-                    System.out.println("getNumberWaiting  : "+ cyclicBarrier.getNumberWaiting());
                     cyclicBarrier.await();
-                    System.out.println("getNumberWaiting  : "+ cyclicBarrier.getNumberWaiting());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (BrokenBarrierException e) {
+                } catch (InterruptedException | BrokenBarrierException e) {
                     e.printStackTrace();
                 }
             });
