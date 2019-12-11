@@ -1,6 +1,7 @@
-package mylock;
+package concurrent.aqs.mylock;
 
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
+import java.util.concurrent.locks.Condition;
 
 /**
  * 自定义互斥锁
@@ -52,6 +53,9 @@ public class MutexLock {
             return true;
         }
 
+        final ConditionObject newCondition() {
+            return new ConditionObject();
+        }
     }
 
     /**
@@ -64,4 +68,9 @@ public class MutexLock {
     public void unlock() {
         STATE_HOLDER.release(1);
     }
+
+    public Condition newCondition(){
+        return STATE_HOLDER.newCondition();
+    }
+
 }

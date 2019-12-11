@@ -1,4 +1,4 @@
-package mylock;
+package concurrent.aqs.mylock;
 
 import java.util.concurrent.*;
 
