@@ -19,14 +19,13 @@ public class CyclicBarrierTest {
                 System.out.println("hello:" + Thread.currentThread().getName());
                 try {
                     cyclicBarrier.await();
+                    System.out.println(123);
                 } catch (InterruptedException | BrokenBarrierException e) {
                     e.printStackTrace();
                 }
             });
         }
         cyclicBarrier.await();
-        System.out.println("主线程执行了222");
-        threadPool.shutdown();
 
     }
 }
