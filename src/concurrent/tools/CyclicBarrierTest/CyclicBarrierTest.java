@@ -1,6 +1,7 @@
 package concurrent.tools.CyclicBarrierTest;
 
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author Jann Lee
@@ -8,14 +9,16 @@ import java.util.concurrent.*;
  * @date 2019-06-01 17:33
  **/
 public class CyclicBarrierTest {
-
-
     public static void main(String[] args) throws BrokenBarrierException, InterruptedException {
         CyclicBarrier cyclicBarrier = new CyclicBarrier(3, () -> System.out.println("sdfdsfafasd"));
 
-        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(11, 100, 1, TimeUnit.SECONDS, new LinkedBlockingDeque<>(10));
-        for (int i = 0; i < 2; i++) {
-            threadPool.execute(() -> {
+        int size = 5;
+        AtomicInteger counter = new AtomicInteger();
+        // 使用线程池的正确姿势
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(size, size, 1000, TimeUnit.SECONDS,
+                new ArrayBlockingQueue<>(100), (r) -> new Thread(r, counter.addAndGet(1) + " 号 "),
+                new ThreadPoolExecutor.AbortPolicy());        for (int i = 0; i < 2; i++) {
+            threadPoolExecutor.execute(() -> {
                 System.out.println("hello:" + Thread.currentThread().getName());
                 try {
                     cyclicBarrier.await();
