@@ -33,7 +33,7 @@ public class ThreadTest {
 class ThreadTaskTest extends Thread {
     @Override
     public void run() {
-        System.out.println("继承Thread类，重写run方法");
+        System.out.println(Thread.currentThread().getName() + "正在执行 继承Thread类，重写run方法");
     }
 }
 /**
@@ -42,7 +42,7 @@ class ThreadTaskTest extends Thread {
 class RunnableTaskTest implements Runnable {
     @Override
     public void run() {
-        System.out.println("实现Runnable接口的任务");
+        System.out.println(Thread.currentThread().getName() + "正在执行 实现Runnable接口的任务");
     }
 }
 
@@ -53,7 +53,7 @@ class CallableTaskTest implements Callable<String> {
     @Override
     public String call() throws Exception {
         Thread.sleep(3000);
-        System.out.println("实现Callable接口的任务");
+        System.out.println(Thread.currentThread().getName() + "正在执行 实现Callable接口的任务");
         return "hello callable!";
     }
 }
