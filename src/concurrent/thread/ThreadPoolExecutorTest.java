@@ -25,5 +25,7 @@ public class ThreadPoolExecutorTest {
         Future<String> future = threadPoolExecutor.submit(new CallableTaskTest());
         System.out.println(future.get());
         threadPoolExecutor.submit(() -> System.out.println(Thread.currentThread().getName() + "正在执行 hello  world"));
+
+        threadPoolExecutor.shutdown();
     }
 }
