@@ -1,6 +1,7 @@
 package concurrent.tools.CyclicBarrierTest;
 
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author Jann Lee
@@ -8,30 +9,26 @@ import java.util.concurrent.*;
  * @date 2019-06-01 17:33
  **/
 public class CyclicBarrierTest {
-    static CyclicBarrier cyclicBarrier = new CyclicBarrier(2);
-
     public static void main(String[] args) throws BrokenBarrierException, InterruptedException {
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(3, () -> System.out.println("sdfdsfafasd"));
 
-        int cpus = Runtime.getRuntime().availableProcessors();
-
-        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(11, 100, 1, TimeUnit.SECONDS, new LinkedBlockingDeque<>(10));
-        for (int i = 0; i < 1; i++) {
-            threadPool.execute(() -> {
+        int size = 5;
+        AtomicInteger counter = new AtomicInteger();
+        // 使用线程池的正确姿势
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(size, size, 1000, TimeUnit.SECONDS,
+                new ArrayBlockingQueue<>(100), (r) -> new Thread(r, counter.addAndGet(1) + " 号 "),
+                new ThreadPoolExecutor.AbortPolicy());        for (int i = 0; i < 2; i++) {
+            threadPoolExecutor.execute(() -> {
                 System.out.println("hello:" + Thread.currentThread().getName());
                 try {
-                    System.out.println("getNumberWaiting  : "+ cyclicBarrier.getNumberWaiting());
                     cyclicBarrier.await();
-                    System.out.println("getNumberWaiting  : "+ cyclicBarrier.getNumberWaiting());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (BrokenBarrierException e) {
+                    System.out.println(123);
+                } catch (InterruptedException | BrokenBarrierException e) {
                     e.printStackTrace();
                 }
             });
         }
         cyclicBarrier.await();
-        System.out.println("主线程执行了222");
-        threadPool.shutdown();
 
     }
 }
