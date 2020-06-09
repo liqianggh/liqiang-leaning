@@ -23,5 +23,7 @@
     </build>
     <modules>
         <module>zookeeper</module>
+        <module>java</module>
+        <module>jmh</module>
     </modules>
 </project>
