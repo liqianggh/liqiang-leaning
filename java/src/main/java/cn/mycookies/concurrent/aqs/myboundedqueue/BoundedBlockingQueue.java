@@ -1,6 +1,6 @@
-package main.java.cn.mycookies.concurrent.aqs.myboundedqueue;
+package cn.mycookies.concurrent.aqs.myboundedqueue;
 
-import main.java.cn.mycookies.concurrent.aqs.mylock.MutexLock;
+import cn.mycookies.concurrent.aqs.mylock.MutexLock;
 
 import java.util.ArrayList;
 import java.util.List;

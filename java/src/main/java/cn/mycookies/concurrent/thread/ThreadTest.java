@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.concurrent.thread;
+package cn.mycookies.concurrent.thread;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;

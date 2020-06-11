@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.concurrent.tools.CountDownLatchTest;
+package cn.mycookies.concurrent.tools.CountDownLatchTest;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CountDownLatch;

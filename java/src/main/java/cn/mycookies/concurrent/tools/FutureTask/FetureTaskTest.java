@@ -1,9 +1,8 @@
-package main.java.cn.mycookies.concurrent.tools.FutureTask;
+package cn.mycookies.concurrent.tools.FutureTask;
 
 import java.util.concurrent.*;
 
 /**
- * @description TODO
  * @author Jann Lee
  * @date 2019-06-01 20:39
  **/

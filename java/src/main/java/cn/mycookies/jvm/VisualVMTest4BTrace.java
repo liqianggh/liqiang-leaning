@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.jvm;
+package cn.mycookies.jvm;
 
 import java.io.BufferedReader;
 import java.io.IOException;

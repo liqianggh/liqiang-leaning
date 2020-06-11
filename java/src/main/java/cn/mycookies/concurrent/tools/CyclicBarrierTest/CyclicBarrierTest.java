@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.concurrent.tools.CyclicBarrierTest;
+package cn.mycookies.concurrent.tools.CyclicBarrierTest;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;

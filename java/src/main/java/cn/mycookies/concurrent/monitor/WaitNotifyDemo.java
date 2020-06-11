@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.concurrent.monitor;
+package cn.mycookies.concurrent.monitor;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

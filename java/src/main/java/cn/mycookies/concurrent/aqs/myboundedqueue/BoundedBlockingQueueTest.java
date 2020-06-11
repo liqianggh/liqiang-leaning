@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.concurrent.aqs.myboundedqueue;
+package cn.mycookies.concurrent.aqs.myboundedqueue;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;

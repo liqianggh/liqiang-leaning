@@ -1,9 +1,7 @@
-package main.java.cn.mycookies.reflection;
+package cn.mycookies.reflection;
 
 /**
  * @author Jann Lee
- * @className Student
- * @description TODO
  * @date 2019-03-03 20:44
  **/
 public class Student {

@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.jvm;
+package cn.mycookies.jvm;
 
 /**
  * 用jconsole测试死锁

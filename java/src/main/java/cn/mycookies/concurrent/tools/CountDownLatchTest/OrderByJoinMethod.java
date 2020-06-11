@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.concurrent.tools.CountDownLatchTest;
+package cn.mycookies.concurrent.tools.CountDownLatchTest;
 
 /**
  * @description 一个线程或多个线程等待其他线程完成

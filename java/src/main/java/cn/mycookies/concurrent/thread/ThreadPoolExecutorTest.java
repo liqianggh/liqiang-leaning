@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.concurrent.thread;
+package cn.mycookies.concurrent.thread;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;

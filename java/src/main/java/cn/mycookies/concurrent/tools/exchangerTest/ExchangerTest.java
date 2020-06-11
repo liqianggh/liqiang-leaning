@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.concurrent.tools.exchangerTest;
+package cn.mycookies.concurrent.tools.exchangerTest;
 
 import java.util.concurrent.Exchanger;
 import java.util.concurrent.LinkedBlockingQueue;

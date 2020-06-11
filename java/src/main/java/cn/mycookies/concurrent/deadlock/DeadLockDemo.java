@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.concurrent.deadlock;
+package cn.mycookies.concurrent.deadlock;
 
 /**
  * 死锁案例

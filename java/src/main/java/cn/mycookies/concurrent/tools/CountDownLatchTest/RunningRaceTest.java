@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.concurrent.tools.CountDownLatchTest;
+package cn.mycookies.concurrent.tools.CountDownLatchTest;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;

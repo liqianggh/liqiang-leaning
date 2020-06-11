@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.reflection;
+package cn.mycookies.reflection;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -6,9 +6,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * @description Java反射相关代码测试
+ * Java反射相关代码测试
+ *
  * @author Jann Lee
- * @className ReflectionDemo
  * @date 2019-03-03 20:45
  **/
 public class ReflectionDemo {
@@ -23,7 +23,7 @@ public class ReflectionDemo {
         Class<Student> clazzClass = Student.class;
 
         // 第二种：通过类名全路径获得[执行静态块但是不执行动态块儿（需要异常处理)]
-        Class<Student> clazzForName = (Class<Student>) Class.forName("cn.mycookies.main.java.mycookies.reflection.Student");
+        Class<Student> clazzForName = (Class<Student>) Class.forName("cn.mycookies.reflection.Student");
 
         // 第三种：通过实例对象获得[需要构造对象，执行静态代码块，代码块]
         Student student = new Student();
@@ -32,20 +32,20 @@ public class ReflectionDemo {
 
     public static void reflectTestMethodsFields() throws ClassNotFoundException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchFieldException, NoSuchMethodException {
         // 获取class对象
-        Class<Student> clazz = (Class<Student>) Class.forName("cn.mycookies.main.java.mycookies.reflection.Student");
+        Class<Student> clazz = (Class<Student>) Class.forName("cn.mycookies.reflection.Student");
 
         // 获取所有的构造方法
-        Constructor<Student>[] constructiors = (Constructor<Student>[]) clazz.getConstructors();
-        for(Constructor<Student> constructor: constructiors){
+        Constructor<Student>[] constructors = (Constructor<Student>[]) clazz.getConstructors();
+        for(Constructor<Student> constructor: constructors){
             System.out.println(constructor);
         }
         // 通过构方法 获取对象
-        Student student = constructiors[0].newInstance();
+        Student student = constructors[0].newInstance();
         student.setAge(12);
         student.setGender("male");
         student.setName("Jann");
         System.out.println(student);
-        Student student2 = constructiors[1].newInstance("Lucy",12,"female");
+        Student student2 = constructors[1].newInstance("Lucy",12,"female");
         System.out.println(student2);
 
 

@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.ratelimiter;
+package cn.mycookies.ratelimiter;
 
 /**
  * 令牌桶限流器

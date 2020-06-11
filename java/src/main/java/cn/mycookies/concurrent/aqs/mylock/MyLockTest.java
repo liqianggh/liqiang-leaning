@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.concurrent.aqs.mylock;
+package cn.mycookies.concurrent.aqs.mylock;
 
 import java.util.concurrent.*;
 

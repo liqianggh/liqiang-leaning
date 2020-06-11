@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.java8date;
+package cn.mycookies.java8date;
 
 /**
  * SimpleDateFormat在text包下，线程不安全的

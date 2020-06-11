@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.others;
+package cn.mycookies.others;
 
 /**
  *

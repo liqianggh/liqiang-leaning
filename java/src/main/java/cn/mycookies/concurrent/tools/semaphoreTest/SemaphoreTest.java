@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.concurrent.tools.semaphoreTest;
+package cn.mycookies.concurrent.tools.semaphoreTest;
 
 import java.util.concurrent.*;
 

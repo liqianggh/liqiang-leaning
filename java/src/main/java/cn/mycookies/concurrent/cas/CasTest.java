@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.concurrent.cas;
+package cn.mycookies.concurrent.cas;
 
 import org.junit.Test;
 

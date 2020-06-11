@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.java8date.format;
+package cn.mycookies.java8date.format;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

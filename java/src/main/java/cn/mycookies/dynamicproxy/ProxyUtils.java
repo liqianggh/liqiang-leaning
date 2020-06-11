@@ -1,4 +1,4 @@
-package main.java.cn.mycookies.dynamicproxy;
+package cn.mycookies.dynamicproxy;
 
 import sun.misc.ProxyGenerator;
 
@@ -6,9 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
+ * 代理工具类，用于保存生成的代理类
+ *
  * @author Jann Lee
- * @className hell
- * @description TODO
  * @date 2019-03-03 22:40
  **/
 public class ProxyUtils {
