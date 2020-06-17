@@ -1,6 +1,7 @@
 package cn.mycookies.bytecode.asm;
 
-import org.objectweb.asm.*;
+
+import jdk.internal.org.objectweb.asm.*;
 
 import java.util.ArrayList;
 import java.util.List;
