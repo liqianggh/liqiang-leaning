@@ -17,12 +17,17 @@ import java.security.ProtectionDomain;
  * @date 2020-06-13 2:30 下午
  **/
 public class ExceptionMonitorTransformer implements ClassFileTransformer {
+
+    /**
+     * class文件转换，如果没有转换返回null即可
+     */
     @Override
     public byte[] transform(ClassLoader loader,
                             String className,
                             Class<?> classBeingRedefined,
                             ProtectionDomain protectionDomain,
                             byte[] classfileBuffer) {
+        
         if (!className.contains("mycookies")) {
             return null;
         }

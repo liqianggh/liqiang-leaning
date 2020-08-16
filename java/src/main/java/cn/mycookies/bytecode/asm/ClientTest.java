@@ -47,4 +47,9 @@ public class ClientTest {
         System.out.println("修改后的字节码文件已生成，见 " + fileName);
     }
 
+    public static void main(String[] args) throws InterruptedException {
+        BaseHandler baseHandler = new BaseHandler();
+        baseHandler.handle();
+    }
+
 }

@@ -56,4 +56,9 @@ public class BaseHandler implements Runnable{
             e.printStackTrace();
         }
     }
+
+    public static void main(String[] args) throws InterruptedException {
+        BaseHandler baseHandler = new BaseHandler();
+        baseHandler.handle();
+    }
 }

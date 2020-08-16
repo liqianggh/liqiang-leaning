@@ -1,7 +1,11 @@
 package cn.mycookies.bytecode.asm;
 
 
-import jdk.internal.org.objectweb.asm.*;
+import jdk.internal.org.objectweb.asm.ClassVisitor;
+import jdk.internal.org.objectweb.asm.ClassWriter;
+import jdk.internal.org.objectweb.asm.Label;
+import jdk.internal.org.objectweb.asm.MethodVisitor;
+import jdk.internal.org.objectweb.asm.Opcodes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +79,7 @@ public class MyClassVisitor extends ClassVisitor implements Opcodes {
                 super.visitLdcInsn(methodName);
                 super.visitInsn(ICONST_1);
                 super.visitLdcInsn(" middle ");
-                super.visitMethodInsn(INVOKESTATIC, "cn/mycookies/bytecode/asm/BaseHandler", "passException", "(Ljava/lang/Exception;Ljava/lang/String;ILjava/lang/String;)V", false);
+                super.visitMethodInsn(INVOKESTATIC, "cn/mycookies/bytecode/asm/ExceptionHandler", "passException", "(Ljava/lang/Exception;Ljava/lang/String;ILjava/lang/String;)V", false);
             }
         }
     }
