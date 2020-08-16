@@ -1,13 +1,16 @@
 package cn.mycookies.demo;
 
+import java.text.SimpleDateFormat;
+
 /**
- * 报时的钟
- */
+ * 测试用的demo
+ *
+ * @author liqiang
+ * @date 2020/8/17 1:04 上午
+ **/
 public class Clock {
 
-    // 日期格式化
-    private final java.text.SimpleDateFormat clockDateFormat
-            = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final ThreadLocal<SimpleDateFormat> CLOCK_DATE_FORMAT_LOCAL = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 
     /**
      * 状态检查
@@ -44,7 +47,7 @@ public class Clock {
      */
     final String report() {
         checkState();
-        return clockDateFormat.format(now());
+        return CLOCK_DATE_FORMAT_LOCAL.get().format(now());
     }
 
     /**
