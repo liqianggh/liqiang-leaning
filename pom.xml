@@ -49,5 +49,6 @@
         <module>java</module>
         <module>jmh</module>
         <module>jvm-sanbox</module>
+        <module>mq-rocket</module>
     </modules>
 </project>
