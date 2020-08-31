@@ -1,7 +1,6 @@
 package cn.mycookies.mmap;
 
 import com.google.common.base.Preconditions;
-import org.apache.commons.lang3.RandomUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,23 +15,10 @@ import java.util.UUID;
  * @author liqiang
  * @date 2020-08-25 5:39 下午
  **/
-public class RandomUtil {
+public class FileGeneratorUtil {
 
-    public static final int BATCH_SIZE = 1024;
-
-    public static char getRandomCharacter() {
-        return (char) ('a' + Math.random() * ('z' - 'a' + 1));
-    }
-
-    /**
-     * 创建一个文件
-     *
-     * @param prefix 文件前缀
-     * @return 文件对象
-     * @throws IOException 文件创建异常
-     */
-    public static File generateFileWithPrefix(String prefix) throws IOException {
-        String fileName = prefix + UUID.randomUUID() + ".txt";
+    public static File generateFileWithPrefix() throws IOException {
+        String fileName = UUID.randomUUID() + ".txt";
         File file = new File("/Users/liqiang/code-repository/study/tempData", fileName);
         if (!file.exists()) {
             Preconditions.checkArgument(file.createNewFile(), "创建文件失败");
@@ -53,47 +39,28 @@ public class RandomUtil {
 
 
     /**
-     * 获取文件的任意读取位置
-     */
-    public static int randomPos(int fileSize) {
-
-        return RandomUtils.nextInt(0, fileSize * 1024 * 1024 - 4);
-    }
-
-    /**
      * 生成文件
      *
      * @param prefixName 文件名称前缀
      * @param size       文件大小，单位M
      */
-    public static File generateFile(String prefixName, int size) throws IOException {
-        File file = null;
-        FileOutputStream outputStream = null;
-        FileChannel channel = null;
+    public static File generateFile(int size) throws IOException {
+        File file = generateFileWithPrefix();
         int fileSize = size;
-        try {
-            file = generateFileWithPrefix(prefixName);
-            outputStream = new FileOutputStream(file);
-            channel = outputStream.getChannel();
-            ByteBuffer buffer = ByteBuffer.allocate(BATCH_SIZE);
+        try (FileChannel channel = new FileOutputStream(file).getChannel();) {
+            ByteBuffer buffer = ByteBuffer.allocate(1024);
             // 每次循环写入1M
             while (fileSize-- > 0) {
-                for (int i = 0; i < BATCH_SIZE; i++) {
+                for (int i = 0; i < 1024; i++) {
                     buffer.put(generate1KbRandomString().getBytes());
-                    buffer.flip();     //此处必须要调用buffer的flip方法
+                    buffer.flip();
                     channel.write(buffer);
                     buffer.clear();
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (outputStream != null) {
-                outputStream.close();
-            }
-            if (channel != null) {
-                channel.close();
-            }
+            System.out.println("生成文件失败， 文件名：" + file.getName());
         }
         return file;
     }
