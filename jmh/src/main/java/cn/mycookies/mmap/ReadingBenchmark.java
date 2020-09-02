@@ -1,13 +1,13 @@
 package cn.mycookies.mmap;
 
+import java.io.IOException;
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
-
-import java.io.IOException;
 
 /**
  * IO操作基准测试，对比传统IO和Mmap
@@ -26,23 +26,26 @@ public class ReadingBenchmark extends BaseIOBenchmarkTest {
     }
 
     @Benchmark
-    public void bioRead() throws IOException {
+    public void bioRead(Blackhole blackhole) throws IOException {
         // 移动指针位置到一个随机值
         randomAccessFile.seek(getRandomPos());
-        randomAccessFile.readByte();
+        byte result = randomAccessFile.readByte();
+        blackhole.consume(result);
     }
 
     @Benchmark
-    public void nioRead() throws IOException {
+    public void nioRead(Blackhole blackhole) throws IOException {
         fileChannel.read(byteBuffer, getRandomPos());
         byteBuffer.flip();
+        blackhole.consume(byteBuffer);
         byteBuffer.clear();
     }
 
     @Benchmark
-    public void mMapRead() {
+    public void mMapRead(Blackhole blackhole) {
         mappedByteBuffer.position(getRandomPos());
-        mappedByteBuffer.get();
+        byte result = mappedByteBuffer.get();
+        blackhole.consume(result);
     }
 
     @Override
