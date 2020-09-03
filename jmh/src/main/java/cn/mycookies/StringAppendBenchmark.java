@@ -1,14 +1,24 @@
 package cn.mycookies;
 
-import org.openjdk.jmh.annotations.*;
+import java.util.concurrent.TimeUnit;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Fork;
+import org.openjdk.jmh.annotations.Measurement;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.OperationsPerInvocation;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Param;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.Threads;
+import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * 测试StringBuilder的性能
@@ -17,17 +27,19 @@ import java.util.concurrent.TimeUnit;
  * @date 2020/6/9 1:06 下午
  **/
 @BenchmarkMode(Mode.AverageTime)
-@Warmup(iterations = 3, time = 1)
+@Warmup(iterations = 2, time = 3)
 @Measurement(iterations = 5, time = 5)
 @Threads(4)
 @Fork(1)
 @State(value = Scope.Benchmark)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-public class StringBuilderTest {
+public class StringAppendBenchmark {
+
     @Param(value = {"10", "50", "100"})
     private int length;
 
     @Benchmark
+    @OperationsPerInvocation(500)
     public void testStringAdd(Blackhole blackhole) {
         String a = "";
         for (int i = 0; i < length; i++) {
@@ -37,6 +49,7 @@ public class StringBuilderTest {
     }
 
     @Benchmark
+    @OperationsPerInvocation(500)
     public void testStringBuilderAdd(Blackhole blackhole) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
@@ -45,18 +58,19 @@ public class StringBuilderTest {
         blackhole.consume(sb.toString());
     }
 
-    /**
-     * Benchmark                               (length)  Mode  Cnt     Score     Error  Units
-     * StringBuilderTest.testStringAdd               10  avgt    5   163.517 ±  15.430  ns/op
-     * StringBuilderTest.testStringAdd               50  avgt    5  1916.981 ± 253.354  ns/op
-     * StringBuilderTest.testStringAdd              100  avgt    5  6815.152 ± 917.946  ns/op
-     * StringBuilderTest.testStringBuilderAdd        10  avgt    5    83.911 ±  16.999  ns/op
-     * StringBuilderTest.testStringBuilderAdd        50  avgt    5   559.954 ±  58.858  ns/op
-     * StringBuilderTest.testStringBuilderAdd       100  avgt    5  1205.039 ±  58.404  ns/op
-     */
+    @Benchmark
+    @OperationsPerInvocation(500)
+    public void testStringBufferAdd(Blackhole blackhole) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            sb.append(i);
+        }
+        blackhole.consume(sb.toString());
+    }
+
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(StringBuilderTest.class.getSimpleName())
+                .include(StringAppendBenchmark.class.getSimpleName())
                 .result("result.json")
                 .resultFormat(ResultFormatType.JSON).build();
         new Runner(opt).run();

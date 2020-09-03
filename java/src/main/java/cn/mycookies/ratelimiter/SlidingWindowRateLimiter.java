@@ -14,4 +14,10 @@ public class SlidingWindowRateLimiter extends MyRateLimiter {
     public boolean tryAcquire() {
         return false;
     }
+
+    public void helloJmh(){
+        long start = System.currentTimeMillis();
+        // do something...
+        System.out.println("helloJmh 耗时："+ (System.currentTimeMillis() - start));
+    }
 }
