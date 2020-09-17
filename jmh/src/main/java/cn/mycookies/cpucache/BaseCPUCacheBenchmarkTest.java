@@ -41,17 +41,38 @@ public abstract class BaseCPUCacheBenchmarkTest {
     }
 
     @State(Scope.Thread)
-    public static class IndexState {
+    public static class LongArrayState {
         public long[][] tempArr;
 
         @Setup(Level.Invocation)
         public void arraySetup() {
-            tempArr = generateArray(maxArraySize);
+            tempArr = generateLongArray(maxArraySize);
         }
     }
 
-    public static long[][] generateArray(int x) {
+
+    @State(Scope.Thread)
+    public static class IntArrayState {
+        public int[][] tempArr;
+
+        @Setup(Level.Invocation)
+        public void arraySetup() {
+            tempArr = generateIntArray(maxArraySize);
+        }
+    }
+
+    public static long[][] generateLongArray(int x) {
         long[][] result = new long[x][maxArraySize];
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < maxArraySize; j++) {
+                result[i][j] = RandomUtils.nextInt(0, 10000);
+            }
+        }
+        return result;
+    }
+
+    public static int[][] generateIntArray(int x) {
+        int[][] result = new int[x][maxArraySize];
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < maxArraySize; j++) {
                 result[i][j] = RandomUtils.nextInt(0, 10000);

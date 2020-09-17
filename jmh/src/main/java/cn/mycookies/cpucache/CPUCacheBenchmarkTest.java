@@ -9,37 +9,53 @@ import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 /**
- * 二维数组遍历验证cpu缓存
+ * 二维数组不同遍历方式性能对比
  *
  * @author liqiang
  * @date 2020-09-16 12:30 上午
  **/
 public class CPUCacheBenchmarkTest extends BaseCPUCacheBenchmarkTest {
-    /**
-     * 基于NIO，向文件写入内容
-     */
+
     @Benchmark
-    public void arrayRead1(IndexState state, Blackhole blackhole) {
+    public void readLongArrayByOrder(LongArrayState state, Blackhole blackhole) {
         for (int i = 0; i < arraySize; i++) {
             for (int j = 0; j < arraySize; j++) {
-                // System.out.println("method-1 " + state.tempArr.hashCode() + " i=" + i + " j=" + j + " result = " +state.tempArr[i][j]);
                 blackhole.consume(state.tempArr[i][j]);
             }
         }
     }
 
-    /**
-     * 基于NIO，向文件写入内容
-     */
+
     @Benchmark
-    public void arrayRead2(IndexState state, Blackhole blackhole) {
+    public void readLongArrayBySkip(LongArrayState state, Blackhole blackhole) {
         for (int i = 0; i < arraySize; i++) {
             for (int j = 0; j < arraySize; j++) {
-                // System.out.println("method-2 " + state.tempArr.hashCode() + " i=" + j + " j=" + i + " result = " +state.tempArr[j][i]);
                 blackhole.consume(state.tempArr[j][i]);
             }
         }
     }
+
+
+    @Benchmark
+    public void readIntArrayByOrder(LongArrayState state, Blackhole blackhole) {
+        for (int i = 0; i < arraySize; i++) {
+            for (int j = 0; j < arraySize; j++) {
+                blackhole.consume(state.tempArr[i][j]);
+            }
+        }
+    }
+
+
+    @Benchmark
+    public void readIntArrayBySkip(LongArrayState state, Blackhole blackhole) {
+        for (int i = 0; i < arraySize; i++) {
+            for (int j = 0; j < arraySize; j++) {
+                blackhole.consume(state.tempArr[j][i]);
+            }
+        }
+    }
+
+
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
