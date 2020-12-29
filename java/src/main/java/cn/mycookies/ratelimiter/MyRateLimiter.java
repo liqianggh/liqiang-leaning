@@ -1,7 +1,5 @@
 package cn.mycookies.ratelimiter;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 /**
  * 限流器
  *
@@ -9,21 +7,10 @@ import java.util.concurrent.atomic.AtomicLong;
  * @date 2020-04-17 0:26
  **/
 public abstract class MyRateLimiter {
-
-    /**
-     * 计数器
-     */
-    AtomicLong counter = new AtomicLong();
-
     /**
      * 每秒限制请求数
      */
     long permitsPerSecond;
-
-    /**
-     * 限流器创建时的初始时间
-     */
-    long timestamp = System.currentTimeMillis();
 
     /**
      * 尝试获取流量

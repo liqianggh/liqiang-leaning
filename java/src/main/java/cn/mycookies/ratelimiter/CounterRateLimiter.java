@@ -1,5 +1,7 @@
 package cn.mycookies.ratelimiter;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 /**
  * 计数 限流器
  * 简单的限流器，维护一个counter， 每秒清零一次
@@ -8,6 +10,14 @@ package cn.mycookies.ratelimiter;
  * @date 2020-04-17 0:47
  **/
 public class CounterRateLimiter extends MyRateLimiter {
+    /**
+     * 限流器创建时的初始时间
+     */
+    long timestamp = System.currentTimeMillis();
+    /**
+     * 计数器
+     */
+    private AtomicLong counter = new AtomicLong();
 
     public CounterRateLimiter(long permitsPerSecond) {
         super.permitsPerSecond = permitsPerSecond;
@@ -26,7 +36,7 @@ public class CounterRateLimiter extends MyRateLimiter {
             }
         }
         // 如果间隔超过1s，则认为下一秒开始，设置为0
-        counter.set(1);
+        counter.set(0);
         timestamp = now;
         return true;
     }
