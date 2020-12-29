@@ -14,7 +14,7 @@ public class RateLimitTest {
 
     @Test
     public void testCounterRateLimiter() throws InterruptedException {
-        MyRateLimiter rateLimiter = new CounterRateLimiter(20);
+        CounterRateLimiter rateLimiter = new CounterRateLimiter(20);
         while (true) {
             boolean flag = rateLimiter.tryAcquire();
             long seconds = TimeUnit.SECONDS.toSeconds(rateLimiter.timestamp);

@@ -7,10 +7,6 @@ package cn.mycookies.ratelimiter;
  * @date 2020-04-17 0:26
  **/
 public abstract class MyRateLimiter {
-    /**
-     * 每秒限制请求数
-     */
-    long permitsPerSecond;
 
     /**
      * 尝试获取流量

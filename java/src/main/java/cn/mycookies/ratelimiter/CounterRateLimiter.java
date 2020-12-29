@@ -11,16 +11,20 @@ import java.util.concurrent.atomic.AtomicLong;
  **/
 public class CounterRateLimiter extends MyRateLimiter {
     /**
-     * 限流器创建时的初始时间
-     */
-    long timestamp = System.currentTimeMillis();
-    /**
      * 计数器
      */
-    private AtomicLong counter = new AtomicLong();
+    private final AtomicLong counter = new AtomicLong(0);
+    /**
+     * 每秒限制请求数
+     */
+    private final long permitsPerSecond;
+    /**
+     * 限流器创建时的初始时间
+     */
+    public long timestamp = System.currentTimeMillis();
 
     public CounterRateLimiter(long permitsPerSecond) {
-        super.permitsPerSecond = permitsPerSecond;
+        this.permitsPerSecond = permitsPerSecond;
     }
 
     @Override
