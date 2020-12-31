@@ -9,7 +9,6 @@ package cn.mycookies.ratelimiter;
 public class LeakyBucketRateLimiter extends MyRateLimiter {
 
     public LeakyBucketRateLimiter(long permitsPerSecond) {
-        super.permitsPerSecond = permitsPerSecond;
     }
 
     @Override
