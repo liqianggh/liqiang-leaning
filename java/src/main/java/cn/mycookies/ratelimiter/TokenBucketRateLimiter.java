@@ -17,9 +17,11 @@ public class TokenBucketRateLimiter extends MyRateLimiter {
     private final long capacity;
 
     /**
-     * 令牌发放时间间隔
+     * 令牌发放速率 ｜ 时间间隔ms
      */
     private final long permitsPerSeconds;
+    private final long interval;
+
     /**
      * 下一个令牌产生时间
      */
@@ -29,17 +31,35 @@ public class TokenBucketRateLimiter extends MyRateLimiter {
      */
     private long currentTokens;
 
-
     public TokenBucketRateLimiter(long permitsPerSeconds, int capacity) {
         this.permitsPerSeconds = permitsPerSeconds;
         this.capacity = capacity;
+        this.interval = 1000 / permitsPerSeconds;
     }
 
+    /**
+     * 尝试获取令牌
+     *
+     * @return true表示获取到令牌，放行；否则为限流
+     */
     @Override
-    public boolean tryAcquire() {
+    public synchronized boolean tryAcquire() {
+        reSync(System.currentTimeMillis());
+        if (currentTokens > 0) {
+            currentTokens--;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 获取不到就休眠，直到能获取到为止
+     */
+    public void acquire() {
         long now = System.currentTimeMillis();
         // 预占令牌
-        long waitTime = reserve(now);
+        long nextTime = reserve(now);
+        long waitTime = nextTime - now;
         if (waitTime > 0) {
             try {
                 TimeUnit.MILLISECONDS.sleep(waitTime);
@@ -47,7 +67,6 @@ public class TokenBucketRateLimiter extends MyRateLimiter {
                 e.printStackTrace();
             }
         }
-        return true;
     }
 
     /**
@@ -57,20 +76,21 @@ public class TokenBucketRateLimiter extends MyRateLimiter {
      *
      * @param now 当前时间
      */
-    private void reSync(long now) {
-        if (now > next) {
+    private synchronized void reSync(long now) {
+        if (now - next >= 1000) {
             // 产生新的令牌数
-            long newPermits = (now - next) / 1000 / permitsPerSeconds;
+            long newPermits = (now - next) / interval;
             currentTokens = Math.min(currentTokens + newPermits, capacity);
             next = now;
         }
+        System.out.println("cur:" + currentTokens);
     }
 
     /**
      * 预占令牌
      *
      * @param now 当前时间
-     * @return 能够获取令牌需要等待的时间
+     * @return 能够获取令牌的时间
      */
     private synchronized long reserve(long now) {
         reSync(now);
@@ -81,8 +101,10 @@ public class TokenBucketRateLimiter extends MyRateLimiter {
         // 令牌净需求：首先减掉令牌桶中的令牌
         long nr = 1 - fb;
         // 重新计算下一个令牌产生时间
-        next = next + nr * permitsPerSeconds * 1000;
+        next = next + nr * interval;
+        this.currentTokens -= fb;
         // 重新计算
-        return Math.min(at - now, 0);
+        return at;
     }
+
 }

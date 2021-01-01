@@ -31,18 +31,27 @@ public class RateLimitTest {
 
 
     @Test
-    public void testTokenBucketRateLimiter() throws InterruptedException {
+    public void testTokenBucketRateLimiter() {
         TokenBucketRateLimiter rateLimiter = new TokenBucketRateLimiter(1, 20);
         AtomicLong counter = new AtomicLong(0);
         while (true) {
-            boolean flag = rateLimiter.tryAcquire();
+            rateLimiter.acquire();
             counter.getAndAdd(1);
+            System.out.println(counter.get() + "--------流量被放行--------" + System.currentTimeMillis());
+        }
+    }
+
+    @Test
+    public void testTokenBucketRateLimiter2() throws InterruptedException {
+        TokenBucketRateLimiter rateLimiter = new TokenBucketRateLimiter(100, 20);
+        AtomicLong counter = new AtomicLong(0);
+        while (true) {
+            boolean flag = rateLimiter.tryAcquire();
+            long seconds = System.currentTimeMillis();
             if (flag) {
-                System.out.println(counter.get() + "--------流量被放行--------");
-                Thread.sleep(1);
+                System.out.println(seconds + "--------流量被放行--------");
             } else {
-                System.out.println(counter.get() + "流量被限制");
-                Thread.sleep((long) (Math.random() * 10 + 1));
+                System.out.println(seconds + "流量被限制");
             }
         }
     }
