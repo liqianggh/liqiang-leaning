@@ -55,4 +55,19 @@ public class RateLimitTest {
             }
         }
     }
+
+    @Test
+    public void testLeakyBucketRateLimiter() throws InterruptedException {
+        LeakyBucketRateLimiter rateLimiter = new LeakyBucketRateLimiter(10, 20);
+        AtomicLong counter = new AtomicLong(0);
+        while (true) {
+            boolean flag = rateLimiter.tryAcquire();
+            long seconds = System.currentTimeMillis();
+            if (flag) {
+                System.out.println(seconds + "--------流量被放行--------");
+            } else {
+                System.out.println(seconds + "流量被限制");
+            }
+        }
+    }
 }
