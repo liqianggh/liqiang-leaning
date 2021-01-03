@@ -59,12 +59,26 @@ public class RateLimitTest {
     @Test
     public void testLeakyBucketRateLimiter() throws InterruptedException {
         LeakyBucketRateLimiter rateLimiter = new LeakyBucketRateLimiter(10, 20);
-        AtomicLong counter = new AtomicLong(0);
         while (true) {
             boolean flag = rateLimiter.tryAcquire();
             long seconds = System.currentTimeMillis();
             if (flag) {
                 System.out.println(seconds + "--------流量被放行--------");
+            } else {
+                System.out.println(seconds + "流量被限制");
+            }
+        }
+    }
+
+    @Test
+    public void testSlidingRateLimiter() throws InterruptedException {
+        SlidingWindowRateLimiter rateLimiter = new SlidingWindowRateLimiter(60);
+        while (true) {
+            boolean flag = rateLimiter.tryAcquire();
+            long seconds = System.currentTimeMillis() / 1000;
+            if (flag) {
+                System.out.println(seconds + "--------流量被放行--------");
+                Thread.sleep((long) (Math.random() * 2000));
             } else {
                 System.out.println(seconds + "流量被限制");
             }
