@@ -9,9 +9,13 @@ package cn.mycookies.ratelimiter;
  * @date 2020-04-17 1:19
  **/
 public class LeakyBucketRateLimiter extends MyRateLimiter {
+    // 桶的容量
     private final int capacity;
+    // 漏出速率
     private final int permitsPerSecond;
-    private long currentTokens;
+    // 剩余水量
+    private long leftWater;
+    // 上次注入时间
     private long timeStamp = System.currentTimeMillis();
 
     public LeakyBucketRateLimiter(int permitsPerSecond, int capacity) {
@@ -21,14 +25,15 @@ public class LeakyBucketRateLimiter extends MyRateLimiter {
 
     @Override
     public synchronized boolean tryAcquire() {
-        //1. 计算剩余token
+        //1. 计算剩余水量
         long now = System.currentTimeMillis();
         long timeGap = (now - timeStamp) / 1000;
-        currentTokens = Math.max(0, currentTokens - timeGap * permitsPerSecond);
+        leftWater = Math.max(0, leftWater - timeGap * permitsPerSecond);
         timeStamp = now;
+
         // 如果未满，则放行；否则限流
-        if (currentTokens < capacity) {
-            currentTokens += 1;
+        if (leftWater < capacity) {
+            leftWater += 1;
             return true;
         }
         return false;
