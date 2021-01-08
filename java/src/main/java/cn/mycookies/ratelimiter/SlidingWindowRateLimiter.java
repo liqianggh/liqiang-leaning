@@ -31,7 +31,7 @@ public class SlidingWindowRateLimiter extends MyRateLimiter {
 
     @Override
     public synchronized boolean tryAcquire() {
-        // 获取当前时间的所在的子窗口值
+        // 获取当前时间的所在的子窗口值； 10s一个窗口
         long currentWindowTime = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC) / 10 * 10;
         // 获取当前窗口的请求总量
         int currentWindowCount = getCurrentWindowCount(currentWindowTime);
@@ -47,7 +47,7 @@ public class SlidingWindowRateLimiter extends MyRateLimiter {
      * 获取当前窗口中的所有请求数（并删除所有无效的子窗口计数器）
      *
      * @param currentWindowTime 当前子窗口时间
-     * @return -
+     * @return 当前窗口中的计数
      */
     private int getCurrentWindowCount(long currentWindowTime) {
         // 计算出窗口的开始位置时间

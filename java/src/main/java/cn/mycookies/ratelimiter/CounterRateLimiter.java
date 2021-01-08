@@ -38,7 +38,7 @@ public class CounterRateLimiter extends MyRateLimiter {
             }
         }
         // 时间窗口过期，重置计数器和时间戳
-        counter = 1;
+        counter = 0;
         timestamp = now;
         return true;
     }
