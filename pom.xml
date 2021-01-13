@@ -55,7 +55,7 @@
         <module>jmh</module>
         <module>jvm-sanbox</module>
         <module>mq-rocket</module>
-        <module>mockito</module>
+        <module>mokito</module>
         <module>utils</module>
     </modules>
 </project>
