@@ -57,5 +57,6 @@
         <module>mq-rocket</module>
         <module>mokito</module>
         <module>utils</module>
+        <module>spring-framework</module>
     </modules>
 </project>

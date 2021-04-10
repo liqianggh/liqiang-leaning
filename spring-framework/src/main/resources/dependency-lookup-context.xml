@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="user" class="thinking.in.spring.ioc.overview.dependency.lookup.User">
+        <property name="id" value="1"/>
+        <property name="name" value="李强"/>
+    </bean>
+    <bean id="objectFactory" class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean">
+        <property name="targetBeanName" value="user"/>
+    </bean>
+    <!--多个同类型的bean时需要指定一个primary，否则根据类型获取时会报错-->
+    <bean id="superUser" class="thinking.in.spring.ioc.overview.dependency.lookup.SuperUser" parent="user"
+          primary="true">
+        <property name="address" value="北京"/>
+    </bean>
+</beans>
