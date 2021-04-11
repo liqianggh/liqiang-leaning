@@ -49,7 +49,7 @@ public class DependencyLookupDemo {
         System.out.println(user);
     }
 
-    private static void lookupCollectionByType(BeanFactory beanFactory) {
+    public static void lookupCollectionByType(BeanFactory beanFactory) {
         User user;
         if (beanFactory instanceof ListableBeanFactory) {
             ListableBeanFactory listableBeanFactory = (ListableBeanFactory) beanFactory;
