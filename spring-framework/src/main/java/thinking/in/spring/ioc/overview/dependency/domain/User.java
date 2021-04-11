@@ -1,4 +1,4 @@
-package thinking.in.spring.ioc.overview.dependency.lookup;
+package thinking.in.spring.ioc.overview.dependency.domain;
 
 import lombok.Data;
 

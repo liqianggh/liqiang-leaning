@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="user" class="thinking.in.spring.ioc.overview.dependency.lookup.User">
+    <bean id="user" class="thinking.in.spring.ioc.overview.dependency.domain.User">
         <property name="id" value="1"/>
         <property name="name" value="李强"/>
     </bean>
@@ -12,7 +12,7 @@
         <property name="targetBeanName" value="user"/>
     </bean>
     <!--多个同类型的bean时需要指定一个primary，否则根据类型获取时会报错-->
-    <bean id="superUser" class="thinking.in.spring.ioc.overview.dependency.lookup.SuperUser" parent="user"
+    <bean id="superUser" class="thinking.in.spring.ioc.overview.dependency.domain.SuperUser" parent="user"
           primary="true">
         <property name="address" value="北京"/>
     </bean>

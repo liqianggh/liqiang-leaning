@@ -4,7 +4,8 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import thinking.in.spring.annoation.Super;
+import thinking.in.spring.ioc.overview.dependency.annoation.Super;
+import thinking.in.spring.ioc.overview.dependency.domain.User;
 
 import java.util.Map;
 

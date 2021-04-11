@@ -1,4 +1,4 @@
-package thinking.in.spring.annoation;
+package thinking.in.spring.ioc.overview.dependency.annoation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
