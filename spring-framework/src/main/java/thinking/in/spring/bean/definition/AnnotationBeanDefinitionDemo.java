@@ -38,6 +38,8 @@ public class AnnotationBeanDefinitionDemo {
         // 二，api方式注入
         registerBeanDefinition(applicationContext, User.class);
 
+        // 三，xml配置 <bean name = xx..
+
         // 关闭上下文
         applicationContext.close();
     }
