@@ -19,7 +19,7 @@ import java.util.Map;
 public class DependencyLookupDemo {
     public static void main(String[] args) {
         // 1. 根据Bean名称查询-实时查询
-        BeanFactory beanFactory = new ClassPathXmlApplicationContext("classpath:dependency-lookup-context.xml");
+        BeanFactory beanFactory = new ClassPathXmlApplicationContext("classpath:META-INF/dependency-lookup-context.xml");
         lookupByNameRealTime(beanFactory);
 
         // 2. 根据Bean名称查询-延时查询

@@ -17,7 +17,7 @@ import thinking.in.spring.ioc.overview.dependency.repository.UserRepository;
 public class DependencyInjectionDemo {
     public static void main(String[] args) {
         // 依赖注入
-        BeanFactory beanFactory = new ClassPathXmlApplicationContext("classpath:dependency-injection-context.xml");
+        BeanFactory beanFactory = new ClassPathXmlApplicationContext("classpath:META-INF/dependency-injection-context.xml");
         final UserRepository userRepository = (UserRepository) beanFactory.getBean("userRepository");
         System.out.println(userRepository);
 

@@ -18,4 +18,8 @@ public class User {
     private Long id;
 
     private String name;
+
+    public static User createUser() {
+        return new User(1L, "hello world");
+    }
 }
