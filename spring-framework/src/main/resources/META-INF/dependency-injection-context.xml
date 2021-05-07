@@ -4,6 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
     <import resource="dependency-lookup-context.xml"/>
 
+    <!--autowire方式注入-->
     <bean name="userRepository" class="thinking.in.spring.ioc.overview.dependency.repository.UserRepository"
           autowire="byType">
         <!--手动配置，也可以根据autowire配置自动注入-->
@@ -13,5 +14,9 @@
         <!--                <ref bean="user"/>-->
         <!--            </util:list>-->
         <!--        </property>-->
+    </bean>
+    <!--setter方法注入-->
+    <bean class="thinking.in.spring.ioc.overview.dependency.injection.UserHolder">
+        <property name="user" ref="user"/>
     </bean>
 </beans>
